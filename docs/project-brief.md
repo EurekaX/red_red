@@ -59,3 +59,4 @@
 - `docs/decision-log.md`：关键决策记录
 - `docs/prototypes/garden-map-greybox-v1.html`：园林地图式草图 V1
 - `docs/scene-design-table-vslice-01.md`：首个 vertical slice 场景设计表
+- `docs/character-asset-table-vslice-01.md`：首个 vertical slice 人物资产表
