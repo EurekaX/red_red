@@ -1,0 +1,8 @@
+.superpowers/
+.claude/
+*.log
+*.tmp
+
+# Local machine integration helpers
+*.reg
+

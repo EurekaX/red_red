@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>园林地图式草图 V1：刘姥姥进大观园</title>
+  <style>
+    :root {
+      --bg: #171111;
+      --panel: #211718;
+      --gold: #d2ac5d;
+      --paper: #f6e8c4;
+      --red: #b13d47;
+      --green: #83a47f;
+      --blue: #8ca0c5;
+      --violet: #b99ad0;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--paper);
+      font-family: "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    main {
+      width: min(1180px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 40px 0;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 0 0 24px;
+      color: #d8c99f;
+      font-size: 15px;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(280px, .9fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .map {
+      position: relative;
+      min-height: 560px;
+      background: var(--panel);
+      border: 1px solid var(--gold);
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    .map::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px dashed rgba(239, 221, 180, .35);
+      pointer-events: none;
+    }
+
+    .node {
+      position: absolute;
+      min-height: 78px;
+      padding: 10px;
+      border: 1px solid currentColor;
+      color: var(--paper);
+      background: #332121;
+    }
+
+    .node strong {
+      display: block;
+      font-size: 16px;
+    }
+
+    .node span {
+      font-size: 12px;
+      color: #d8c99f;
+    }
+
+    .entry { left: 8%; top: 8%; width: 25%; background: #402028; color: var(--red); }
+    .fengjie { left: 39%; top: 8%; width: 24%; background: #513022; color: var(--gold); }
+    .gate { left: 70%; top: 11%; width: 20%; background: #263628; color: var(--green); }
+    .xiaoxiang { left: 10%; top: 37%; width: 23%; background: #263628; color: var(--green); }
+    .qiushuang { left: 39%; top: 35%; width: 24%; background: #2b2d35; color: var(--blue); }
+    .hengwu { left: 70%; top: 38%; width: 20%; background: #35283a; color: var(--violet); }
+    .banquet { left: 15%; top: 70%; width: 23%; background: #43242a; color: #bf4551; }
+    .corridor { left: 47%; top: 68%; width: 23%; background: #4b2d1d; color: var(--gold); }
+
+    .routes {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .routes path {
+      stroke: var(--gold);
+      stroke-width: .6;
+      fill: none;
+      stroke-dasharray: 2 1;
+    }
+
+    .notes {
+      display: grid;
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid rgba(210, 172, 93, .45);
+      background: #211718;
+      padding: 16px;
+    }
+
+    .label {
+      margin-bottom: 6px;
+      color: var(--gold);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .card p {
+      margin: 0;
+      color: #eadcb8;
+      font-size: 14px;
+    }
+
+    @media (max-width: 860px) {
+      .board { grid-template-columns: 1fr; }
+      .map { min-height: 520px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>园林地图式草图 V1：刘姥姥进大观园</h1>
+    <p class="subtitle">项目早期 greybox：先定空间节点、移动关系、互动密度。后续再分别细化场景、人物、道具和演出素材。</p>
+
+    <section class="board" aria-label="园林地图式草图">
+      <div class="map">
+        <div class="node entry"><strong>荣府入口</strong><span>入梦 / 礼数 / 引路</span></div>
+        <div class="node fengjie"><strong>凤姐处</strong><span>寒暄 / 调度 / 赏赐</span></div>
+        <div class="node gate"><strong>园门</strong><span>开幕 / 进园</span></div>
+        <div class="node xiaoxiang"><strong>潇湘馆</strong><span>竹影 / 黛玉 / 清冷</span></div>
+        <div class="node qiushuang"><strong>秋爽斋</strong><span>探春 / 阔朗 / 书案</span></div>
+        <div class="node hengwu"><strong>蘅芜苑</strong><span>宝钗 / 冷香 / 素雅</span></div>
+        <div class="node banquet"><strong>宴席戏眼</strong><span>笑剧 / 行酒令 / 高潮</span></div>
+        <div class="node corridor"><strong>醉归回廊</strong><span>迷路 / 梦转 / 余韵</span></div>
+
+        <svg class="routes" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M25 18 C36 16 40 16 50 18 S67 18 80 20"/>
+          <path d="M80 25 C76 35 70 42 61 44"/>
+          <path d="M51 25 C50 34 50 36 50 44"/>
+          <path d="M25 25 C23 33 22 39 22 45"/>
+          <path d="M23 54 C28 65 31 68 28 78"/>
+          <path d="M51 53 C47 63 43 70 31 76"/>
+          <path d="M80 54 C72 61 65 68 58 77"/>
+        </svg>
+      </div>
+
+      <aside class="notes">
+        <div class="card">
+          <div class="label">Core Loop</div>
+          <p>选路进入场景 -> 观察舞台层 -> 点击人物、器物、声响 -> 触发文本、旁白或小互动 -> 获得“梦痕”收集 -> 解锁下一处。</p>
+        </div>
+        <div class="card">
+          <div class="label">Asset Buckets</div>
+          <p>场景底图、人物立绘/剪影、可点击道具、环境动效、曲文音画、UI 题跋、收集卡。</p>
+        </div>
+        <div class="card">
+          <div class="label">First Vertical Slice</div>
+          <p>建议先做“园门 -> 潇湘馆 -> 宴席戏眼”三节点，验证移步移景、点击互动、文本演出和艺术气质。</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>
