@@ -62,3 +62,4 @@
 - `docs/character-asset-table-vslice-01.md`：首个 vertical slice 人物资产表
 - `docs/hotspot-prop-table-vslice-01.md`：首个 vertical slice 道具与热点表
 - `docs/text-trigger-table-vslice-01.md`：首个 vertical slice 文本触发表
+- `docs/ui-information-architecture-vslice-01.md`：首个 vertical slice UI 信息架构表
